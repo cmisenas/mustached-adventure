@@ -22,7 +22,7 @@ var startServer = function() {
     if (pathname == '/') {
       serveStaticFile('index.html', 'text/html', res);
     } else {
-      var type = pathname.indexOf('.js') > -1 ? 'text/javascript' : 'text/css' ;
+      var type = pathname.indexOf('.js') > -1 ? 'text/javascript' : pathname.indexOf('.html') > -1 ? 'text/html' : 'text/css' ;
       serveStaticFile(pathname.substring(1), type, res);
     }
   }).listen(PORT);
