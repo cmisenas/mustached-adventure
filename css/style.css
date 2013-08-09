@@ -1,0 +1,22 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #f90;
+}
+
+#main {
+  display: block;
+  margin: 50px auto;
+}
+
+#main * {
+  display: block;
+  width: 600px;
+  height: 30px;
+  margin: 10px auto;
+}
+
+
