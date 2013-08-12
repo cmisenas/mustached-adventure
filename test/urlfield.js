@@ -29,16 +29,25 @@ describe("UrlField", function(){
 
   describe('good url', function(){
     it('should accept urls stating with the right protocol', function(){
-        var goodUrlEnding = "://www.badurl.com";
+        var goodUrlEnding = "://www.goodurl.com";
         var goodProtocols = ["http", "https", "ftp"];
         for (var i = 0; i < goodProtocols.length; i++) {
             testfield.val = goodProtocols[i] + goodUrlEnding;
-            assert.equal(urlField.get(), false);
+            assert.equal(urlField.get(), testfield.val);
         }
     });
   });
 
   describe('bad url', function(){
+    it('should not accept empty string', function(){
+        testfield.val = "";
+        assert.equal(urlField.get(), false);
+    });
+    it('should not accept string with only whitespace', function(){
+        testfield.val = "   ";
+        assert.equal(urlField.get(), false);
+    });
+
     it('should not accept url with a space', function(){
         testfield.val = "http://www.bad url.com";
         assert.equal(urlField.get(), false);
