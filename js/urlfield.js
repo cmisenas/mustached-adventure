@@ -5,9 +5,9 @@
   }
 
   UrlField.prototype.get = function(){
-    var urlVal = this.el.val
+    var urlVal = this.el.value;
     if (this.isOkayUrl(urlVal)) {
-        return this.el.val;
+        return urlVal;
     }
     return false;
   }
