@@ -24,7 +24,9 @@
   }
 
   Storage.prototype.getIndex = function(fn) {
-    this.client.get('index', fn);
+    this.client.get('index', function(err, res){
+      fn(err, parseInt(res, 10));
+    });
   }
 
   exports.Storage = Storage;
