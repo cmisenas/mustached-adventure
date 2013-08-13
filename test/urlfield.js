@@ -6,6 +6,7 @@ var $ = require("jquery");
 var testfield;
 
 describe("UrlField", function(){
+
   setup(function(){
     testfield = $("<input type='text' id='urlfield'/>");
   });
@@ -28,6 +29,7 @@ describe("UrlField", function(){
   });
 
   describe('good url', function(){
+    
     it('should accept urls stating with the right protocol', function(){
         var goodUrlEnding = "://www.goodurl.com";
         var goodProtocols = ["http", "https", "ftp"];
@@ -36,13 +38,16 @@ describe("UrlField", function(){
             assert.equal(urlField.get(), testfield.val);
         }
     });
+
   });
 
   describe('bad url', function(){
+
     it('should not accept empty string', function(){
         testfield.val = "";
         assert.equal(urlField.get(), false);
     });
+    
     it('should not accept string with only whitespace', function(){
         testfield.val = "   ";
         assert.equal(urlField.get(), false);
@@ -52,15 +57,18 @@ describe("UrlField", function(){
         testfield.val = "http://www.bad url.com";
         assert.equal(urlField.get(), false);
     });
+
     it('should have a 2-4 character domain ending', function(){
         testfield.val = "http://www.badurl.c";
         assert.equal(urlField.get(), false);
         testfield.val = "http://www.badurl.coooooooom";
         assert.equal(urlField.get(), false);
     });
+
     it('should contain the name of a supported protocol', function(){
         testfield.val = "httpd://www.badurl.com";
         assert.equal(urlField.get(), false);
     });
   });
+
 });
