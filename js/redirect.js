@@ -8,7 +8,7 @@
   }
 
   Redirector.prototype.get = function(){
-    return this.url || 'error.html';
+    return this.url === false ? 'error.html' : this.url;
   }
 
   Redirector.prototype.redirectToUrl = function(urlVal) {
