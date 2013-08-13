@@ -9,6 +9,10 @@ describe("Storage", function(){
     storage = new Storage('redis');
   });
 
+  afterEach(function(){
+    storage.client.flushdb();
+  });
+
   it("should be able to create db", function(done){
     var k = "test key",
         v = "test val";
