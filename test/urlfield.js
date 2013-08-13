@@ -1,4 +1,4 @@
-var urlfield = require("../js/urlfield");
+var UrlField = require("../js/urlfield").UrlField;
 var assert = require("assert");
 var mocha = require("mocha");
 var $ = require("jquery");
@@ -11,7 +11,7 @@ describe("UrlField", function(){
   });
 
   beforeEach(function(){
-    urlField = new urlfield.UrlField(testfield);
+    urlField = new UrlField(testfield);
   });
 
   it('should be instantiatable', function(){
