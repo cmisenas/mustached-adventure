@@ -1,11 +1,12 @@
-var Redirector = require("../js/storage").Redirector;
+var Redirector = require("../js/redirect").Redirector;
 var assert = require("assert");
 var $ = require("jquery");
+var redir;
 
 describe("Redirecting URLs", function(){
   
   setup(function(){
-    var redir = new Redirector();
+    redir = new Redirector();
   });
 
   it("should be able to change the window.location.href given a right url", function(){
