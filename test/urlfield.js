@@ -1,6 +1,5 @@
 var UrlField = require("../js/urlfield").UrlField;
 var assert = require("assert");
-var mocha = require("mocha");
 var $ = require("jquery");
 
 var testfield;

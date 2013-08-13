@@ -1,6 +1,5 @@
 var Shortener = require("../js/shortener").Shortener;
 var assert = require("assert");
-var mocha = require("mocha");
 var $ = require("jquery");
 
 describe("Shortener", function(){
