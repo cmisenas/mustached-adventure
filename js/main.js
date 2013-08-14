@@ -10,24 +10,42 @@
     e.preventDefault();
     var urlVal = urlfield.get();
     if (urlVal === false) {
-      throw "Bad Url";
+      alert('Not a good a url :(');
+      //throw "Bad Url";
+    } else {
+      sendRequest(urlVal);
     }
+  };
 
-    //send request
+  function sendRequest(urlVal){
     $.ajax({url: 'js/server.js',
             type: 'POST',
             data: {url: urlVal},
             success: function(res){
-              console.log(res);
-              displayUrl(res);
+              var resJSON = $.parseJSON(res);
+              if (resJSON.hashedUrl) {
+                displayUrl(resJSON.hashedUrl);
+              } else if (resJSON.error) {
+                displayError(resJSON.error);
+              }
             }
     });
-  };
+  }
 
   var displayUrl = function(url){
-    var urlContainer = $('<div id="shortenedUrl"></div>');
-    urlContainer.html('<a href="http://mustached.com/' + url + '">http://mustached.com/' + url + '</a>');
-    $('body').append(urlContainer);
+    var innerHtml = '<a href="http://mustached.com/' + url + '">http://mustached.com/' + url + '</a>';
+    append("shortenedUrl", innerHtml);
+  }
+
+  var displayError = function(error){
+    var innerHtml = '<p>' + error + '</p>';
+    append("error", innerHtml);
+  }
+
+  function append(containerId, content){
+    var container = $('<div id="' + containerId +'"></div>');
+    container.html(content);
+    $('body').append(container);
   }
 
 }(this));
