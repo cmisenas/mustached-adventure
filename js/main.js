@@ -15,8 +15,9 @@
 
     //send request
     $.ajax({url: 'js/mustache.js',
+            type: 'POST',
             data: {url: urlVal},
-            success: function(err, res){
+            success: function(res){
               console.log(res);
             }
     });
