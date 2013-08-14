@@ -4,7 +4,9 @@ var http = require('http'),
     url = require('url'),
     qs = require('querystring');
 
-var mustache = require('./mustache');
+var mustache = require('./mustache'),
+    Storage = require("../js/storage").Storage,
+    Shortener = require("../js/shortener").Shortener;
 
 var serveStaticFile = function(filename, type, res) {
   fs.readFile(filename, 'utf8', function (err, data) {
@@ -28,12 +30,25 @@ var startServer = function() {
       });
       req.on('end', function(){
         console.log(qs.parse(body));
-        //TODO: interact with mustache here
+        //var url = qs.parse(body).url,
+        //    storage = new Storage('redis'),
+        //    shortener = new Shortener();
+        //mustache(url, shortener, storage, function(err, res){
+        //  if (err) {
+        //    res.writeHead(200);
+        //    res.end('Error!');
+        //  }
+        //  if (res) {
+        //    
+        //  }
+        //});
       });
     } else {
       var pathname = url.parse(req.url).pathname;
       if (pathname == '/') {
         serveStaticFile('index.html', 'text/html', res);
+        //queries should be handled here for when users send hashed urls
+        //how are we going to check for that?
       } else {
         var type = pathname.indexOf('.js') > -1 ? 'text/javascript' : pathname.indexOf('.html') > -1 ? 'text/html' : 'text/css' ;
         serveStaticFile(pathname.substring(1), type, res);
