@@ -1,7 +1,7 @@
 var http = require('http'),
     fs = require('fs'),
     io = require('socket.io'),
-    url = require('url');
+    url = require('url'),
     qs = require('querystring');
 
 var mustache = require('./mustache');
@@ -22,9 +22,12 @@ var startServer = function() {
   var PORT = 8000;
   var app = http.createServer(function(req, res){
     if (req.method === 'POST') {
+      var body = '';
       req.on('data', function(data){
-        console.log(data.toString());
-        console.log(qs.parse(data.toString()));
+        body += data.toString();
+      });
+      req.on('end', function(){
+        console.log(qs.parse(body));
         //TODO: interact with mustache here
       });
     } else {
