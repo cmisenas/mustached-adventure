@@ -14,13 +14,20 @@
     }
 
     //send request
-    $.ajax({url: 'js/mustache.js',
+    $.ajax({url: 'js/server.js',
             type: 'POST',
             data: {url: urlVal},
             success: function(res){
               console.log(res);
+              displayUrl(res);
             }
     });
   };
+
+  var displayUrl = function(url){
+    var urlContainer = $('<div id="shortenedUrl"></div>');
+    urlContainer.html('<a href="http://mustached.com/' + url + '">http://mustached.com/' + url + '</a>');
+    $('body').append(urlContainer);
+  }
 
 }(this));

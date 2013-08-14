@@ -1,12 +1,14 @@
 var http = require('http'),
     fs = require('fs'),
-    io = require('socket.io'),
     url = require('url'),
     qs = require('querystring');
 
-var mustache = require('./mustache'),
+var mustache = require('./mustache').mustache,
     Storage = require("../js/storage").Storage,
     Shortener = require("../js/shortener").Shortener;
+
+var storage = new Storage('redis'),
+    shortener = new Shortener();
 
 var serveStaticFile = function(filename, type, res) {
   fs.readFile(filename, 'utf8', function (err, data) {
@@ -20,6 +22,7 @@ var serveStaticFile = function(filename, type, res) {
   });
 };
 
+
 var startServer = function() {
   var PORT = 8000;
   var app = http.createServer(function(req, res){
@@ -29,19 +32,17 @@ var startServer = function() {
         body += data.toString();
       });
       req.on('end', function(){
-        console.log(qs.parse(body));
-        //var url = qs.parse(body).url,
-        //    storage = new Storage('redis'),
-        //    shortener = new Shortener();
-        //mustache(url, shortener, storage, function(err, res){
-        //  if (err) {
-        //    res.writeHead(200);
-        //    res.end('Error!');
-        //  }
-        //  if (res) {
-        //    
-        //  }
-        //});
+        var url = qs.parse(body).url;
+        mustache(url, shortener, storage, function(err, hashedUrl){
+          if (err) {
+            res.writeHead(200); //TODO: Make sure this is right
+            res.end('Error!');
+          }
+          if (hashedUrl) {
+            res.writeHead(200);
+            res.end(hashedUrl);
+          }
+        });
       });
     } else {
       var pathname = url.parse(req.url).pathname;
@@ -59,15 +60,4 @@ var startServer = function() {
   console.log("Server started on port", PORT);
   return app;
 };
-
-function initSocketIO(app){
-  var socket = io.listen(app);
-  socket.configure(function(){
-    socket.set('transports', ['websocket']);
-    socket.set('log level', 2);
-  });
-
-  return socket;
-}
-
-var socket = initSocketIO(startServer());
+startServer();
