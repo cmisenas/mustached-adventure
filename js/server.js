@@ -2,6 +2,9 @@ var http = require('http'),
     fs = require('fs'),
     io = require('socket.io'),
     url = require('url');
+    qs = require('querystring');
+
+var mustache = require('./mustache');
 
 var serveStaticFile = function(filename, type, res) {
   fs.readFile(filename, 'utf8', function (err, data) {
@@ -18,12 +21,20 @@ var serveStaticFile = function(filename, type, res) {
 var startServer = function() {
   var PORT = 8000;
   var app = http.createServer(function(req, res){
-    var pathname = url.parse(req.url).pathname;
-    if (pathname == '/') {
-      serveStaticFile('index.html', 'text/html', res);
+    if (req.method === 'POST') {
+      req.on('data', function(data){
+        console.log(data.toString());
+        console.log(qs.parse(data.toString()));
+        //TODO: interact with mustache here
+      });
     } else {
-      var type = pathname.indexOf('.js') > -1 ? 'text/javascript' : pathname.indexOf('.html') > -1 ? 'text/html' : 'text/css' ;
-      serveStaticFile(pathname.substring(1), type, res);
+      var pathname = url.parse(req.url).pathname;
+      if (pathname == '/') {
+        serveStaticFile('index.html', 'text/html', res);
+      } else {
+        var type = pathname.indexOf('.js') > -1 ? 'text/javascript' : pathname.indexOf('.html') > -1 ? 'text/html' : 'text/css' ;
+        serveStaticFile(pathname.substring(1), type, res);
+      }
     }
   }).listen(PORT);
 
