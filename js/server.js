@@ -11,6 +11,7 @@ var storage = new Storage('redis'),
     shortener = new Shortener();
 
 var mustache = new Mustache(shortener, storage);
+var COOKIE_PREFIX = '_MYSTASH_';
 
 var serveStaticFile = function(filename, type, res) {
   fs.readFile(filename, 'utf8', function (err, data) {
@@ -28,6 +29,7 @@ var serveStaticFile = function(filename, type, res) {
 var startServer = function() {
   var PORT = 8000;
   var app = http.createServer(function(req, res){
+    console.log(req.url)
     if (req.method === 'POST') {
       handlePost(req, res);
     } else if (req.method === 'GET'){
@@ -71,10 +73,12 @@ var handleGet = function(req, res){
     if (type){
         serveStaticFile(pathname, type, res);
     } else {
-        var val = extractCookieVal(req.headers.cookie, pathname);
-        mustache.get(pathname.substring(1), function(err, redirectUrl){
+        var index = extractCookie(req.headers.cookie, COOKIE_PREFIX + pathname);
+        index = parseInt(index, 10);
+        index = (index !== index) ? 0 : index;
+        mustache.get(pathname, function(err, redirectUrl){
             res.writeHead(302, {
-            'Set-Cookie': 'mycookie=test',
+            'Set-Cookie': COOKIE_PREFIX + pathname + '=' + (index + 1),
             'Location': redirectUrl
             });
             res.end();
