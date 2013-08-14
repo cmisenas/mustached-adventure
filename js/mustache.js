@@ -1,11 +1,21 @@
 ;(function(exports){
-  function mustache(url, shortener, storage, fn) {
-      storage.getIndex(function(err, res){
-        var hashed = shortener.convert(parseInt(res, 10));
-        storage.set(hashed, url, function(err, res){
+  var Mustache = function(shortener, storage){
+    this.shortener = shortener;
+    this.storage = storage;
+  };
+
+  Mustache.prototype.set = function(url, fn) {
+      var that = this;
+      this.storage.getIndex(function(err, res){
+        var hashed = that.shortener.convert(parseInt(res, 10));
+        that.storage.set(hashed, url, function(err, res){
           fn(err, hashed);
         });
       });
   }
-  exports.mustache = mustache;
+
+  Mustache.prototype.get = function(hashedUrl, fn){
+    this.storage.get(hashedUrl, fn)
+  }
+  exports.Mustache = Mustache;
 }(this));

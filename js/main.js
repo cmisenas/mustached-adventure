@@ -4,7 +4,6 @@
   console.log(urlfield);
 
   var shortenBtn = $('#shorten')[0];
-  var redirect = new Redirector();
 
   shortenBtn.onclick = function(e){
     e.preventDefault();
@@ -33,7 +32,7 @@
   }
 
   var displayUrl = function(url){
-    var innerHtml = '<a href="http://mustached.com/' + url + '">http://mustached.com/' + url + '</a>';
+    var innerHtml = '<a href="/' + url + '">http://mustached.com/' + url + '</a>';
     append("shortenedUrl", innerHtml);
   }
 
