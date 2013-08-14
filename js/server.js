@@ -3,12 +3,14 @@ var http = require('http'),
     url = require('url'),
     qs = require('querystring');
 
-var mustache = require('./mustache').mustache,
+var Mustache = require('./mustache').Mustache,
     Storage = require("../js/storage").Storage,
     Shortener = require("../js/shortener").Shortener;
 
 var storage = new Storage('redis'),
     shortener = new Shortener();
+
+var mustache = new Mustache(shortener, storage);
 
 var serveStaticFile = function(filename, type, res) {
   fs.readFile(filename, 'utf8', function (err, data) {
@@ -28,18 +30,13 @@ var startServer = function() {
   var app = http.createServer(function(req, res){
     if (req.method === 'POST') {
       handlePost(req, res);
-    } else {
-      var pathname = url.parse(req.url).pathname;
-      if (pathname == '/') {
-        serveStaticFile('index.html', 'text/html', res);
-        //queries should be handled here for when users send hashed urls
-        //how are we going to check for that?
-      } else {
-        var type = pathname.indexOf('.js') > -1 ? 'text/javascript' : pathname.indexOf('.html') > -1 ? 'text/html' : 'text/css' ;
-        serveStaticFile(pathname.substring(1), type, res);
-      }
+    } else if (req.method === 'GET'){
+      handleGet(req, res);
     }
   }).listen(PORT);
+  console.log("Server started on port", PORT);
+  return app;
+};
 
 var handlePost = function(req, res){
   var body = '';
@@ -48,7 +45,7 @@ var handlePost = function(req, res){
   });
   req.on('end', function(){
     var url = qs.parse(body).url;
-    mustache(url, shortener, storage, function(err, hashedUrl){
+    mustache.set(url, function(err, hashedUrl){
       console.log('here');
       if (err) {
         res.writeHead(200); //TODO: Make sure this is right
@@ -60,9 +57,29 @@ var handlePost = function(req, res){
       }
     });
   });
-}
-
-  console.log("Server started on port", PORT);
-  return app;
 };
+
+var handleGet = function(req, res){
+  var pathname = url.parse(req.url).pathname;
+  if (pathname == '/') {
+    serveStaticFile('index.html', 'text/html', res);
+  } else {
+    console.log(pathname);
+    var type = pathname.indexOf('.js') > -1 ? 'text/javascript' 
+             : pathname.indexOf('.html') > -1 ? 'text/html' 
+             : pathname.indexOf('.css') > -1 ? 'text/css'
+             : false;
+    if (type){
+        serveStaticFile(pathname.substring(1), type, res);
+    } else {
+        mustache.get(pathname.substring(1), function(err, redirectUrl){
+            res.writeHead(302, {'Location': redirectUrl});
+            res.end();
+        });
+        //TODO: get mustache from database
+    }
+  }
+};
+
+
 startServer();
