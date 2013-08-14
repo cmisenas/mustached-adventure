@@ -27,23 +27,7 @@ var startServer = function() {
   var PORT = 8000;
   var app = http.createServer(function(req, res){
     if (req.method === 'POST') {
-      var body = '';
-      req.on('data', function(data){
-        body += data.toString();
-      });
-      req.on('end', function(){
-        var url = qs.parse(body).url;
-        mustache(url, shortener, storage, function(err, hashedUrl){
-          if (err) {
-            res.writeHead(200); //TODO: Make sure this is right
-            res.end('Error!');
-          }
-          if (hashedUrl) {
-            res.writeHead(200);
-            res.end(hashedUrl);
-          }
-        });
-      });
+      handlePost(req, res);
     } else {
       var pathname = url.parse(req.url).pathname;
       if (pathname == '/') {
@@ -56,6 +40,27 @@ var startServer = function() {
       }
     }
   }).listen(PORT);
+
+var handlePost = function(req, res){
+  var body = '';
+  req.on('data', function(data){
+    body += data.toString();
+  });
+  req.on('end', function(){
+    var url = qs.parse(body).url;
+    mustache(url, shortener, storage, function(err, hashedUrl){
+      console.log('here');
+      if (err) {
+        res.writeHead(200); //TODO: Make sure this is right
+        res.end(JSON.stringify({error: 'There was an error in parsing the url'}));
+      }
+      if (hashedUrl) {
+        res.writeHead(200);
+        res.end(JSON.stringify({hashedUrl: hashedUrl}));
+      }
+    });
+  });
+}
 
   console.log("Server started on port", PORT);
   return app;
