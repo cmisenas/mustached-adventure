@@ -102,7 +102,7 @@ button#shorten {
   width: 100px;
   height: 40px;
   font-size: 18px;
-  background: #FF6600;
+  background: #F60;
   color: #EEE;
   border: 0;
   border-right-style: solid;
@@ -116,6 +116,19 @@ button#shorten {
   -moz-border-radius-bottomright: 10px;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
+}
+
+button#shorten:hover{
+  background: #F82;
+}
+
+button#shorten:active{
+  border: 0;
+  border-left-style: solid;
+  border-top-style: solid;
+  border-left-width: 4px;
+  border-top-width: 4px;
+  border-color: #FEF6E8;
 }
 
 div#shortenedUrl, div#error {

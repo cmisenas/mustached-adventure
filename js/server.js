@@ -61,7 +61,6 @@ var handlePost = function(req, res){
 
 var handleGet = function(req, res){
   var pathname = url.parse(req.url).pathname.substring(1);
-  console.log(req.url, pathname);
   if (pathname == '') {
     serveStaticFile('index.html', 'text/html', res);
   } else {
