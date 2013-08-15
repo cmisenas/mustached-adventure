@@ -29,7 +29,6 @@ var serveStaticFile = function(filename, type, res) {
 var startServer = function() {
   var PORT = 8000;
   var app = http.createServer(function(req, res){
-    console.log(req.url)
     if (req.method === 'POST') {
       handlePost(req, res);
     } else if (req.method === 'GET'){
@@ -48,7 +47,6 @@ var handlePost = function(req, res){
   req.on('end', function(){
     var url = qs.parse(body).url;
     mustache.set(url, function(err, hashedUrl){
-      console.log('here');
       if (err) {
         res.writeHead(200); //TODO: Make sure this is right
         res.end(JSON.stringify({error: 'There was an error in parsing the url'}));
@@ -63,36 +61,53 @@ var handlePost = function(req, res){
 
 var handleGet = function(req, res){
   var pathname = url.parse(req.url).pathname.substring(1);
+  console.log(req.url, pathname);
   if (pathname == '') {
     serveStaticFile('index.html', 'text/html', res);
   } else {
     var type = pathname.indexOf('.js') > -1 ? 'text/javascript' 
-             : pathname.indexOf('.html') > -1 ? 'text/html' 
-             : pathname.indexOf('.css') > -1 ? 'text/css'
-             : false;
+      : pathname.indexOf('.html') > -1 ? 'text/html' 
+      : pathname.indexOf('.css') > -1 ? 'text/css'
+      : false;
     if (type){
-        serveStaticFile(pathname, type, res);
+      serveStaticFile(pathname, type, res);
     } else {
-        var index = extractCookie(req.headers.cookie, COOKIE_PREFIX + pathname);
-        index = parseInt(index, 10);
-        index = (index !== index) ? 0 : index;
+
+      if (pathname.indexOf('.') === -1) {
+        var index;
+        if (req.headers.cookie) {
+          index = extractCookie(req.headers.cookie, COOKIE_PREFIX + pathname);
+          index = parseInt(index, 10);
+          index = (index !== index) ? 0 : index;
+        } else {
+          index = 0;
+        }
         mustache.get(pathname, function(err, redirectUrl){
+          if (redirectUrl) {
             res.writeHead(302, {
-            'Set-Cookie': COOKIE_PREFIX + pathname + '=' + (index + 1),
-            'Location': redirectUrl
+              'Set-Cookie': COOKIE_PREFIX + pathname + '=' + (index + 1),
+              'Location': redirectUrl
             });
             res.end();
+          } else {
+            res.writeHead(404);
+            res.end('Invalid Url');
+          }
         });
-        //TODO: get mustache from database
+      } else {
+        res.writeHead(200);
+        res.end();
+      }
+
     }
   }
 };
 
 var extractCookie = function(cookies, name){
-    var start = cookies.indexOf(name);
-    var end = cookies.indexOf(';', start);
-    end = end === -1 ? cookies.length : end;
-    return cookies.substring(start, end).split('=')[1];
+  var start = cookies.indexOf(name);
+  var end = cookies.indexOf(';', start);
+  end = end === -1 ? cookies.length : end;
+  return cookies.substring(start, end).split('=')[1];
 };
 
 module.exports.extractCookie = extractCookie;
