@@ -4,7 +4,7 @@ var $ = require("jquery");
 var storage; 
 
 describe("Storage", function(){
-  
+
   beforeEach(function(){
     storage = new Storage('redis');
   });
@@ -15,17 +15,20 @@ describe("Storage", function(){
 
   it("should be able to create db", function(done){
     var k = "test key",
-        v = "test val";
+    v = ["test val"];
 
-    storage.set(k, v);
-    storage.get(k, function(err, res){
-      assert.equal(res, v);
-      done();
+    storage.set(k, v, function(){
+      storage.get(k, 0, function(err, res){
+        assert.equal(res[0], v[0]);
+        done();
+      });
     });
 
   });
 
   it("should return null when hash or function is empty", function(done){
+    // figure out why it does not fail
+    // even when index not passed
     storage.get('', function(err, res) {
       assert.equal(res, null);
       done();
@@ -44,7 +47,7 @@ describe("Storage", function(){
 
   it("should not accept insertions with empty key", function(done){
     var k = "",
-        v = "test val";
+        v = ["test val"];
     storage.set(k, v, function(err, res){
       storage.get(k, function(err, res){
         assert.equal(res, null);
@@ -55,7 +58,7 @@ describe("Storage", function(){
 
   it("should increment index by one when setting", function(done){
     var k = "test key",
-        v = "test val";
+        v = ["test val"];
     var index;
     storage.getIndex(function(err, res){
       index = res;
@@ -67,5 +70,17 @@ describe("Storage", function(){
       });
     });
   });
+
+  it("should return the right size given a key", function(done){
+    var k = "test key",
+        v = ["https://www.google.com/", "https://www.hackerschool.com/", "https://humbughq.com/", "http://gmail.com/"];
+    storage.set(k, v, function(err1, res1){
+      storage.sizeOf(k, function(err2, res2){
+        assert.equal(res2, 4);
+        done();
+      });
+    });
+  });
+
 
 });
