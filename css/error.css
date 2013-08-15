@@ -1,0 +1,13 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Press Start 2P', cursive;
+  background: #0F0;
+}
+
+h1 {
+  text-align: center;
+  margin: 20px auto;
+  font-size: 100px;
+  text-transform: uppercase;
+}
