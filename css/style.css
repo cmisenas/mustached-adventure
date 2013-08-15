@@ -1,22 +1,139 @@
-* {
+/**
+ * Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/)
+ * http://cssreset.com
+ */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li, 
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td, 
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
   margin: 0;
   padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
 }
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q { 
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: ''; 
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+}
+
+
+/*
+ * Custom Styling
+ */
 
 body {
-  background: #f90;
+  background: #FEF6E8;
 }
 
-#main {
+form#main, form#main *, img#logo, div#shortenedUrl, div#error {
   display: block;
+}
+
+form#main {
+  flaot: left;
+  width: 600px;
   margin: 50px auto;
 }
 
-#main * {
-  display: block;
-  width: 600px;
-  height: 30px;
+form#main * {
   margin: 10px auto;
 }
 
+img#logo {
+  margin: 50px auto;
+}
 
+input#urlfield {
+  float: left;
+  width: 490px;
+  height: 30px;
+  border: none;
+  background: #FFF;
+  padding: 5px;
+  font-size: 20px;
+  color: #333;
+  -webkit-border-top-left-radius: 10px;
+  -webkit-border-bottom-left-radius: 10px;
+  -moz-border-radius-topleft: 10px;
+  -moz-border-radius-bottomleft: 10px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+button#shorten {
+  float: left;
+  width: 100px;
+  height: 40px;
+  font-size: 18px;
+  background: #FF6600;
+  color: #EEE;
+  border: 0;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-right-width: 4px;
+  border-bottom-width: 4px;
+  border-color: #D45500;
+  -webkit-border-top-right-radius: 10px;
+  -webkit-border-bottom-right-radius: 10px;
+  -moz-border-radius-topright: 10px;
+  -moz-border-radius-bottomright: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+div#shortenedUrl, div#error {
+  width: 100%;
+  height: 200px;
+  clear: both;
+  text-align: center;
+  z-index: 9999;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  color: #FFF;
+}
+
+div#shortenedUrl {
+  background: #9C0;
+}
+
+div#error {
+  background: #609;
+}
