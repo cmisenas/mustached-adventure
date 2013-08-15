@@ -14,16 +14,26 @@ var mustache = new Mustache(shortener, storage);
 var COOKIE_PREFIX = '_MYSTASH_';
 
 var serveStaticFile = function(filename, type, res) {
-  fs.readFile(filename, 'utf8', function (err, data) {
-    if (data) {
+  fs.readFile(filename, 'utf8', function (err1, data1) {
+    if (data1) {
       res.writeHead(200, { 'Content-Type': type });
-      res.end(data);
+      res.end(data1);
     } else {
-      res.writeHead(400);
-      res.end('404 Not Found');
+      serveErrorPage(res);
     }
   });
 };
+
+var serveErrorPage = function(res) {
+  fs.readFile('error.html', 'utf8', function (err2, data2){
+    res.writeHead(404);
+    if (err2) {
+      res.end('File Not Found!');
+    } else {
+      res.end(data2);
+    }
+  });
+}
 
 
 var startServer = function() {
@@ -90,8 +100,7 @@ var handleGet = function(req, res){
             });
             res.end();
           } else {
-            res.writeHead(404);
-            res.end('Invalid Url');
+            serveErrorPage(res);
           }
         });
       } else {
