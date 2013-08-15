@@ -49,7 +49,7 @@ var handlePost = function(req, res){
     mustache.set(url, function(err, hashedUrl){
       if (err) {
         res.writeHead(200); //TODO: Make sure this is right
-        res.end(JSON.stringify({error: 'There was an error in parsing the url'}));
+        res.end(JSON.stringify({error: 'There was an error in parsing the url\n' + err}));
       }
       if (hashedUrl) {
         res.writeHead(200);
@@ -82,10 +82,10 @@ var handleGet = function(req, res){
         } else {
           index = 0;
         }
-        mustache.get(pathname, function(err, redirectUrl){
+        mustache.get(pathname, index, function(err, redirectUrl, newIndex){
           if (redirectUrl) {
             res.writeHead(302, {
-              'Set-Cookie': COOKIE_PREFIX + pathname + '=' + (index + 1),
+              'Set-Cookie': COOKIE_PREFIX + pathname + '=' + newIndex,
               'Location': redirectUrl
             });
             res.end();
