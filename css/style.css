@@ -134,19 +134,38 @@ button#shorten:active{
 div#shortenedUrl, div#error {
   width: 100%;
   height: 200px;
+  padding: 10px 0;
   clear: both;
   text-align: center;
   z-index: 9999;
   position: absolute;
   bottom: 0;
   left: 0;
-  color: #FFF;
+  border-top-width: 5px;
+  border-top-style: solid;
 }
 
 div#shortenedUrl {
   background: #9C0;
+  border-top-color: #5A0;
+  color: #333;
+}
+
+div#shortenedUrl a {
+  color: #000;
+}
+
+div#error a {
+  color: #FFF;
+}
+
+div#shortenedUrl a, div#error a {
+  text-decoration: none;
+  font-weight: bold;
 }
 
 div#error {
   background: #609;
+  border-top-color: #306;
+  color: #EEE;
 }
