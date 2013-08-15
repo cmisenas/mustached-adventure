@@ -83,7 +83,7 @@ var handleGet = function(req, res){
           index = 0;
         }
         mustache.get(pathname, index, function(err, redirectUrl, newIndex){
-          if (redirectUrl) {
+          if (redirectUrl && redirectUrl.length > 0) {
             res.writeHead(302, {
               'Set-Cookie': COOKIE_PREFIX + pathname + '=' + newIndex,
               'Location': redirectUrl
