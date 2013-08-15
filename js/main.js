@@ -1,8 +1,6 @@
 ;(function(exports) {
   
   var urlfield = new UrlField($('#urlfield')[0]);
-  console.log(urlfield);
-
   var shortenBtn = $('#shorten')[0];
 
   shortenBtn.onclick = function(e){
