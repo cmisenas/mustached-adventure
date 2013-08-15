@@ -68,6 +68,7 @@ var handleGet = function(req, res){
     var type = pathname.indexOf('.js') > -1 ? 'text/javascript' 
       : pathname.indexOf('.html') > -1 ? 'text/html' 
       : pathname.indexOf('.css') > -1 ? 'text/css'
+      : pathname.indexOf('.svg') > -1 ? 'image/svg+xml'
       : false;
     if (type){
       serveStaticFile(pathname, type, res);
