@@ -37,7 +37,7 @@ var serveErrorPage = function(res) {
 
 
 var startServer = function() {
-  var PORT = 8000;
+  var PORT = 80;
   var app = http.createServer(function(req, res){
     if (req.method === 'POST') {
       handlePost(req, res);
