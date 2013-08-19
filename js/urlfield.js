@@ -15,15 +15,15 @@
   UrlField.prototype.isOkayUrl = function(urlVal) {
     var hasWhitespace = /\s/g;
     var invalidEnding = /\.([a-z]{0,1}||[a-z]{5,})\/?$/;
-    //var invalidProtocol = /^(http|https|ftp)\:\/{2}/;
+    var invalidProtocol = /^(http|https|ftp)\:\/{2}/;
     if (urlVal.length === 0) {
         return false;
     } else if (hasWhitespace.test(urlVal)) {
         return false;
     } else if(invalidEnding.test(urlVal)) {
         return false;
-    //} else if(invalidProtocol.test(urlVal) === false) {
-    //    return false;
+    } else if(invalidProtocol.test(urlVal) === false) {
+        return false;
     } else {
         return true;
     }
