@@ -74,42 +74,44 @@ var handleGet = function(req, res){
   if (pathname == '') {
     serveStaticFile('index.html', 'text/html', res);
   } else {
-    var type = pathname.indexOf('.js') > -1 ? 'text/javascript' 
-      : pathname.indexOf('.html') > -1 ? 'text/html' 
-      : pathname.indexOf('.css') > -1 ? 'text/css'
-      : pathname.indexOf('.svg') > -1 ? 'image/svg+xml'
-      : false;
+    var type = getFileType(pathname);
     if (type){
       serveStaticFile(pathname, type, res);
     } else {
-
       if (pathname.indexOf('.') === -1) {
-        var index;
-        if (req.headers.cookie) {
-          index = extractCookie(req.headers.cookie, COOKIE_PREFIX + pathname);
-          index = parseInt(index, 10);
-          index = (index !== index) ? 0 : index;
-        } else {
-          index = 0;
-        }
-        mustache.get(pathname, index, function(err, redirectUrl, newIndex){
-          if (redirectUrl && redirectUrl.length > 0) {
-            res.writeHead(302, {
-              'Set-Cookie': COOKIE_PREFIX + pathname + '=' + newIndex,
-              'Location': redirectUrl
-            });
-            res.end();
-          } else {
-            serveErrorPage(res);
-          }
-        });
+        handleRedirect(req.headers, pathname, res);
       } else {
         res.writeHead(200);
         res.end();
       }
-
     }
   }
+};
+
+var handleRedirect = function(headers, hashUrl, res) {
+  var index = 0;
+  if (headers.cookie) {
+    index = parseInt(extractCookie(headers.cookie, COOKIE_PREFIX + hashUrl), 10) || 0;
+  }
+  mustache.get(hashUrl, index, function(err, redirectUrl, newIndex){
+    if (redirectUrl && redirectUrl.length > 0) {
+      res.writeHead(302, {
+        'Set-Cookie': COOKIE_PREFIX + hashUrl + '=' + newIndex,
+        'Location': redirectUrl
+      });
+      res.end();
+    } else {
+      serveErrorPage(res);
+    }
+  });
+};
+
+var getFileType = function(fileName) {
+  return fileName.indexOf('.js') > -1 ? 'text/javascript' 
+    : fileName.indexOf('.html') > -1 ? 'text/html' 
+    : fileName.indexOf('.css') > -1 ? 'text/css'
+    : fileName.indexOf('.svg') > -1 ? 'image/svg+xml'
+    : false;
 };
 
 var extractCookie = function(cookies, name){
@@ -119,6 +121,13 @@ var extractCookie = function(cookies, name){
   return cookies.substring(start, end).split('=')[1];
 };
 
+module.exports.serveStaticFile = serveStaticFile;
+module.exports.serveErrorPage = serveErrorPage;
+module.exports.startServer = startServer;
+module.exports.handlePost = handlePost;
+module.exports.handleGet = handleGet;
+module.exports.handleRedirect = handleRedirect;
+module.exports.getFileType = getFileType;
 module.exports.extractCookie = extractCookie;
 
 startServer();
