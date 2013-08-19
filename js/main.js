@@ -1,5 +1,6 @@
 ;(function(exports) {
   
+  var DOMAIN = "http://mstch.me/";
   var urlfield = new UrlField($('#urlfield')[0]);
   var shortenBtn = $('#shorten')[0];
 
@@ -29,8 +30,8 @@
     });
   }
 
-  var displayUrl = function(url){
-    var innerHtml = '<a href="/' + url + '">http://mustached.com/' + url + '</a>';
+  var displayUrl = function(path){
+    var innerHtml = '<a href="/' + path + '" >' + DOMAIN + path + '</a>';
     append("shortenedUrl", innerHtml);
   }
 
