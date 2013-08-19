@@ -13,40 +13,54 @@ var storage = new Storage('redis'),
 var mustache = new Mustache(shortener, storage);
 var COOKIE_PREFIX = '_MYSTASH_';
 
-var serveStaticFile = function(filename, type, res) {
-  fs.readFile(filename, 'utf8', function (err1, data1) {
-    if (data1) {
-      res.writeHead(200, { 'Content-Type': type });
-      res.end(data1);
+/**
+ * Writes static file contents to head. If file does not exists, function serves error
+ * @param {string} filename - file to serve
+ * @param {string} type - type of file to serve
+ * @param {http.ServerResponse} response - response object generated from request
+ */
+var serveStaticFile = function(filename, type, response) {
+  fs.readFile(filename, 'utf8', function (err, data) {
+    if (data) {
+      response.writeHead(200, { 'Content-Type': type });
+      response.end(data);
     } else {
-      serveErrorPage(res);
+      serveErrorPage(response);
     }
   });
 };
 
-var serveErrorPage = function(res) {
-  fs.readFile('error.html', 'utf8', function (err2, data2){
-    res.writeHead(404);
-    if (err2) {
-      res.end('File Not Found!');
+/**
+ * Serves default error page. If default error page is not found, writes file not found
+ * @param {http.ServerResponse} response
+ */
+var serveErrorPage = function(response) {
+  fs.readFile('error.html', 'utf8', function (err, data){
+    response.writeHead(404);
+    if (err) {
+      response.end('File Not Found!');
     } else {
-      res.end(data2);
+      response.end(data);
     }
   });
 }
 
-
 var startServer = function() {
-  var PORT = 8002;
-  var app = http.createServer(function(req, res){
+  var PORT = 80;
+  var app = makeApp();
+  app.listen(PORT);
+  console.log("Server started on port", PORT);
+  return app;
+};
+
+var makeApp = function () {
+  return http.createServer( function (req, res){
     if (req.method === 'POST') {
       handlePost(req, res);
     } else if (req.method === 'GET'){
       handleGet(req, res);
     }
-  }).listen(PORT);
-  console.log("Server started on port", PORT);
-  return app;
+  });
 };
 
 var handlePost = function(req, res){
