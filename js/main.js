@@ -1,6 +1,6 @@
 ;(function(exports) {
   
-  var DOMAIN = "http://mstch.me/";
+  var DOMAIN = "http://www.mstch.me/";
   var urlfield = new UrlField($('#urlfield')[0]);
   var shortenBtn = $('#shorten')[0];
 
