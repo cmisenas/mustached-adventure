@@ -1,10 +1,17 @@
 module.exports = (grunt) ->
   grunt.initConfig
     author: ['David Lichtenberg (https://github.com/dmlicht)', 'Jade Misenas (https://github.com/cmisenas)']
+    coffee:
+      compile:
+        expand: true
+        cwd: 'src/'
+        src: '*.coffee'
+        dest: 'bin/'
+        ext: '.js'
     concat:
       dist:
         files:
-          'bin/mustached.js': ['src/urlfield.js', 'src/main.js']
+          'bin/mustached.js': ['bin/urlfield.js', 'bin/main.js']
     uglify:
       dist:
         files:
@@ -15,18 +22,19 @@ module.exports = (grunt) ->
           'css/mustached.min.css': ['css/style.css']
           'css/error.min.css': ['css/error.css']
     watch:
-      files: ['src/*.js', 'bin/*.js']
+      files: ['src/*.coffee', 'src/*.js', 'bin/*.js']
       tasks: 'default'
 
   grunt.loadNpmTasks 'grunt-contrib-uglify'
   grunt.loadNpmTasks 'grunt-contrib-concat'
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-contrib-cssmin'
+  grunt.loadNpmTasks 'grunt-contrib-coffee'
 
   grunt.registerTask(
     'default',
     'Watches the project for changes and automatically builds them.',
-    [ 'concat', 'uglify', 'cssmin', 'watch' ]
+    [ 'coffee', 'concat', 'uglify', 'cssmin', 'watch' ]
   )
 
 
