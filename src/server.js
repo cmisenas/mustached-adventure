@@ -4,8 +4,8 @@ var http = require('http'),
     qs = require('querystring');
 
 var Mustache = require('./mustache').Mustache,
-    Storage = require("../js/storage").Storage,
-    Shortener = require("../js/shortener").Shortener;
+    Storage = require("../src/storage").Storage,
+    Shortener = require("../src/shortener").Shortener;
 
 var storage = new Storage('redis'),
     shortener = new Shortener();
@@ -121,8 +121,8 @@ var handleRedirect = function(headers, hashUrl, res) {
 };
 
 var getFileType = function(fileName) {
-  return fileName.indexOf('.js') > -1 ? 'text/javascript' 
-    : fileName.indexOf('.html') > -1 ? 'text/html' 
+  return fileName.indexOf('.js') > -1 ? 'text/javascript'
+    : fileName.indexOf('.html') > -1 ? 'text/html'
     : fileName.indexOf('.css') > -1 ? 'text/css'
     : fileName.indexOf('.svg') > -1 ? 'image/svg+xml'
     : false;

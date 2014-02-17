@@ -1,10 +1,10 @@
-var Redirector = require("../js/redirect").Redirector;
+var Redirector = require("../src/redirect").Redirector;
 var assert = require("assert");
 var $ = require("jquery");
 var redir;
 
 describe("Redirecting URLs", function(){
-  
+
   setup(function(){
     redir = new Redirector();
   });

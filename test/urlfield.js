@@ -1,4 +1,4 @@
-var UrlField = require("../js/urlfield").UrlField;
+var UrlField = require("../src/urlfield").UrlField;
 var assert = require("assert");
 var $ = require("jquery");
 

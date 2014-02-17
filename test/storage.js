@@ -1,7 +1,6 @@
-var Storage = require("../js/storage").Storage;
+var Storage = require("../src/storage").Storage;
 var assert = require("assert");
-var $ = require("jquery");
-var storage; 
+var storage;
 
 describe("Storage", function(){
 
@@ -38,7 +37,7 @@ describe("Storage", function(){
   it("should return number index", function(done){
     storage.getIndex(function(err, res) {
       assert.equal(true, (function(){
-        return parseInt(res) >= 0; 
+        return parseInt(res) >= 0;
       }()));
       assert.equal(true, !isNaN(res));
       done();

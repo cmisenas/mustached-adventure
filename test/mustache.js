@@ -1,8 +1,8 @@
 var assert = require("assert");
 var $ = require("jquery");
-var Mustache = require("../js/mustache").Mustache;
-var Storage = require("../js/storage").Storage;
-var Shortener = require("../js/shortener").Shortener;
+var Mustache = require("../src/mustache").Mustache;
+var Storage = require("../src/storage").Storage;
+var Shortener = require("../src/shortener").Shortener;
 
 var storage,
     shortener,
@@ -18,7 +18,7 @@ describe("Mustache", function(){
   afterEach(function(){
     storage.client.flushdb();
   });
-    
+
   it("should be able to grow a mustache", function(){
     assert(mustache);
   });

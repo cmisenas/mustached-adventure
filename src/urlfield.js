@@ -27,8 +27,8 @@
     } else {
         return true;
     }
-    
+
   }
-  
+
   exports.UrlField = UrlField;
 }(this));
