@@ -1,4 +1,4 @@
-var Storage = require("../src/storage").Storage;
+var Storage = require("../bin/storage").Storage;
 var assert = require("assert");
 var storage;
 

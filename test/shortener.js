@@ -1,4 +1,4 @@
-var Shortener = require("../src/shortener").Shortener;
+var Shortener = require("../bin/shortener").Shortener;
 var assert = require("assert");
 var $ = require("jquery");
 

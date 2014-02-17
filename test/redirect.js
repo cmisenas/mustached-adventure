@@ -1,4 +1,4 @@
-var Redirector = require("../src/redirect").Redirector;
+var Redirector = require("../bin/redirect").Redirector;
 var assert = require("assert");
 var $ = require("jquery");
 var redir;

@@ -1,8 +1,8 @@
 var assert = require("assert");
 var $ = require("jquery");
-var Mustache = require("../src/mustache").Mustache;
-var Storage = require("../src/storage").Storage;
-var Shortener = require("../src/shortener").Shortener;
+var Mustache = require("../bin/mustache").Mustache;
+var Storage = require("../bin/storage").Storage;
+var Shortener = require("../bin/shortener").Shortener;
 
 var storage,
     shortener,
