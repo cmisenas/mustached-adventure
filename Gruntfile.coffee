@@ -4,11 +4,11 @@ module.exports = (grunt) ->
     concat:
       dist:
         files:
-          'bin/mustached.js': ['src/jquery.js', 'src/urlfield.js', 'src/main.js']
+          'bin/mustached.js': ['src/urlfield.js', 'src/main.js']
     uglify:
       dist:
         files:
-          'bin/mustached.min.js': ['bin/mustached.js']
+          'bin/mustached.min.js': ['src/jquery.js', 'bin/mustached.js']
     cssmin:
       combine:
         files:
