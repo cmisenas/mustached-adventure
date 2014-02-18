@@ -1,4 +1,4 @@
 test:
-	mocha -u tdd --reporter nyan
+	mocha -u tdd --compilers coffee:coffee-script --reporter nyan
 
 .PHONY: test
