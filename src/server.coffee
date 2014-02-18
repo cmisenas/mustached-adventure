@@ -4,8 +4,8 @@ url = require('url')
 qs = require('querystring')
 
 Mustache = require('./mustache').Mustache
-Storage = require("../src/storage").Storage
-Shortener = require("../src/shortener").Shortener
+Storage = require("../bin/storage").Storage
+Shortener = require("../bin/shortener").Shortener
 
 storage = new Storage('redis')
 shortener = new Shortener()
@@ -111,7 +111,7 @@ getFileType = (fileName) ->
 
 extractCookie = (cookies, name) ->
   start = cookies.indexOf(name)
-  end = cookies.indexOf('', start)
+  end = cookies.indexOf(';', start)
   end = if end == -1 then cookies.length else end
   cookies.substring(start, end).split('=')[1]
 

@@ -13,7 +13,7 @@
     }
 
     Storage.prototype.set = function(key, vals, fn) {
-      var addArr, i, _i, _len;
+      var addArr, index, val, _i, _len;
       if (key === 'index' || key === '') {
         fn(new Error('ERROR: Bad key'));
         return false;
@@ -21,9 +21,9 @@
       this.client.incr("index");
       addArr = [];
       addArr.push(key);
-      for (_i = 0, _len = vals.length; _i < _len; _i++) {
-        i = vals[_i];
-        addArr.push(i + 1, vals[i]);
+      for (index = _i = 0, _len = vals.length; _i < _len; index = ++_i) {
+        val = vals[index];
+        addArr.push(index + 1, val);
       }
       return this.client.zadd(addArr, fn);
     };

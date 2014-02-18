@@ -12,7 +12,7 @@ class Mustache
 
   get: (hashedUrl, index, fn) ->
     @storage.sizeOf(hashedUrl, (outerErr, size) =>
-      index = index >= size ? 0 : index
+      index = if index >= size then 0 else index
       @storage.get(hashedUrl, index, (innerErr, urlValue) ->
         fn(innerErr, urlValue, index + 1)
       )

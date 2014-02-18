@@ -15,8 +15,8 @@ class Storage
     @client.incr("index")
     addArr = []
     addArr.push(key)
-    for i in vals
-      addArr.push(i + 1, vals[i])
+    for val, index in vals
+      addArr.push(index + 1, val)
     @client.zadd(addArr, fn)
 
   get: (hash, index, fn) ->

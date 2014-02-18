@@ -22,8 +22,12 @@ module.exports = (grunt) ->
           'css/mustached.min.css': ['css/style.css']
           'css/error.min.css': ['css/error.css']
     watch:
-      files: ['src/*.coffee', 'src/*.js', 'bin/*.js']
-      tasks: 'default'
+      dev:
+        files: ['src/*.coffee']
+        tasks: 'coffee'
+      prod:
+        files: ['bin/*.js', 'css/*']
+        tasks: 'default'
 
   grunt.loadNpmTasks 'grunt-contrib-uglify'
   grunt.loadNpmTasks 'grunt-contrib-concat'

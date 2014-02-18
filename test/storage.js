@@ -16,9 +16,9 @@ describe("Storage", function(){
     var k = "test key",
     v = ["test val"];
 
-    storage.set(k, v, function(){
-      storage.get(k, 0, function(err, res){
-        assert.equal(res[0], v[0]);
+    storage.set(k, v, function(outerErr, outerRes){
+      storage.get(k, 0, function(innerErr, innerRes){
+        assert.equal(innerRes[0], v[0]);
         done();
       });
     });

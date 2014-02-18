@@ -24,10 +24,7 @@
     Mustache.prototype.get = function(hashedUrl, index, fn) {
       return this.storage.sizeOf(hashedUrl, (function(_this) {
         return function(outerErr, size) {
-          var _ref;
-          index = (_ref = index >= size) != null ? _ref : {
-            0: index
-          };
+          index = index >= size ? 0 : index;
           return _this.storage.get(hashedUrl, index, function(innerErr, urlValue) {
             return fn(innerErr, urlValue, index + 1);
           });

@@ -11,10 +11,11 @@
     };
 
     Redirector.prototype.get = function() {
-      var _ref;
-      return (_ref = this.url === false) != null ? _ref : {
-        'error.html': this.url
-      };
+      if (this.url === false) {
+        return 'error.html';
+      } else {
+        return this.url;
+      }
     };
 
     Redirector.prototype.redirectToUrl = function(urlVal) {

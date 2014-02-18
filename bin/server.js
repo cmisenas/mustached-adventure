@@ -11,9 +11,9 @@
 
   Mustache = require('./mustache').Mustache;
 
-  Storage = require("../src/storage").Storage;
+  Storage = require("../bin/storage").Storage;
 
-  Shortener = require("../src/shortener").Shortener;
+  Shortener = require("../bin/shortener").Shortener;
 
   storage = new Storage('redis');
 
@@ -149,7 +149,7 @@
   extractCookie = function(cookies, name) {
     var end, start;
     start = cookies.indexOf(name);
-    end = cookies.indexOf('', start);
+    end = cookies.indexOf(';', start);
     end = end === -1 ? cookies.length : end;
     return cookies.substring(start, end).split('=')[1];
   };
