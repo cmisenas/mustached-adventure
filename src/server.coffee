@@ -102,12 +102,16 @@ handleRedirect = (headers, hashUrl, res) ->
   )
 
 getFileType = (fileName) ->
-  switch fileName
-    when fileName.indexOf('.js')   > -1 then 'text/javascript'
-    when fileName.indexOf('.html') > -1 then 'text/html'
-    when fileName.indexOf('.css')  > -1 then 'text/css'
-    when fileName.indexOf('.svg')  > -1 then 'image/svg+xml'
-    else false
+  fileTypes =
+    '.js':    'text/javascript'
+    '.html':  'text/html'
+    '.css':   'text/css'
+    '.svg':   'image/svg+xml'
+  for extension, type of fileTypes
+    return type if fileName.indexOf(extension) > -1
+
+  fileName
+
 
 extractCookie = (cookies, name) ->
   start = cookies.indexOf(name)

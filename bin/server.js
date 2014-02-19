@@ -132,18 +132,20 @@
   };
 
   getFileType = function(fileName) {
-    switch (fileName) {
-      case fileName.indexOf('.js') > -1:
-        return 'text/javascript';
-      case fileName.indexOf('.html') > -1:
-        return 'text/html';
-      case fileName.indexOf('.css') > -1:
-        return 'text/css';
-      case fileName.indexOf('.svg') > -1:
-        return 'image/svg+xml';
-      default:
-        return false;
+    var extension, fileTypes, type;
+    fileTypes = {
+      '.js': 'text/javascript',
+      '.html': 'text/html',
+      '.css': 'text/css',
+      '.svg': 'image/svg+xml'
+    };
+    for (extension in fileTypes) {
+      type = fileTypes[extension];
+      if (fileName.indexOf(extension) > -1) {
+        return type;
+      }
     }
+    return fileName;
   };
 
   extractCookie = function(cookies, name) {

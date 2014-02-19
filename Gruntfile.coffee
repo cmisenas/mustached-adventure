@@ -15,7 +15,7 @@ module.exports = (grunt) ->
     uglify:
       dist:
         files:
-          'bin/mustached.min.js': ['src/jquery.js', 'bin/mustached.js']
+          'bin/mustached.min.js': ['bin/jquery.js', 'bin/mustached.js']
     cssmin:
       combine:
         files:
