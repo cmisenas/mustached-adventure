@@ -1,3 +1,4 @@
+config = require('../config')
 http = require('http')
 fs = require('fs')
 url = require('url')
@@ -12,7 +13,7 @@ shortener = new Shortener()
 
 mustache = new Mustache(shortener, storage)
 COOKIE_PREFIX = '_MYSTASH_'
-PORT = 8000
+PORT = if process.env.NODE_ENV == 'development' or process.env.NODE_ENV == 'test' then 8000 else 80
 
 # Writes static file contents to head. If file does not exists, function serves error
 # @param {string} filename - file to serve

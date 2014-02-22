@@ -1,5 +1,7 @@
 (function() {
-  var COOKIE_PREFIX, Mustache, PORT, Shortener, Storage, extractCookie, fs, getFileType, handleGet, handlePost, handleRedirect, http, makeApp, mustache, qs, serveErrorPage, serveStaticFile, shortener, startServer, storage, url;
+  var COOKIE_PREFIX, Mustache, PORT, Shortener, Storage, config, extractCookie, fs, getFileType, handleGet, handlePost, handleRedirect, http, makeApp, mustache, qs, serveErrorPage, serveStaticFile, shortener, startServer, storage, url;
+
+  config = require('../config');
 
   http = require('http');
 
@@ -23,7 +25,7 @@
 
   COOKIE_PREFIX = '_MYSTASH_';
 
-  PORT = 8000;
+  PORT = process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test' ? 8000 : 80;
 
   serveStaticFile = function(filename, type, response) {
     return fs.readFile(filename, 'utf8', function(error, data) {

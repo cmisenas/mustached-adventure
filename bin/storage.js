@@ -1,11 +1,17 @@
 (function() {
-  var Storage;
+  var Storage, config;
+
+  config = require('../config');
 
   Storage = (function() {
-    function Storage(mod) {
-      var store;
+    function Storage(mod, port, host, options) {
+      var REDIS_PORT, store;
+      REDIS_PORT = port != null ? port : config.production.redis.port;
+      if (process.env.NODE_ENV === 'test') {
+        REDIS_PORT = config.development.redis.port;
+      }
       store = require(mod);
-      this.client = store.createClient();
+      this.client = store.createClient(REDIS_PORT, host, options);
       this.client.setnx("index", 0);
       this.client.on("error", function(error) {
         return console.log("ERROR: " + error);
