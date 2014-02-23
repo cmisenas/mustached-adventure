@@ -7,9 +7,7 @@
       this.storage = storage;
     }
 
-    Mustache.prototype.set = function(url, fn) {
-      var urlArray;
-      urlArray = url.split('|');
+    Mustache.prototype.set = function(urlArray, fn) {
       return this.storage.getIndex((function(_this) {
         return function(outerErr, outerRes) {
           var hashed;

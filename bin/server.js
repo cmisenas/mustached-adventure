@@ -73,13 +73,16 @@
     var body;
     body = '';
     request.on('data', function(data) {
-      return body += data.toString();
+      return body += data;
     });
     return request.on('end', function() {
-      url = qs.parse(body).url;
-      return mustache.set(url, function(error, hashedUrl) {
+      var urlArray, urlData;
+      urlData = qs.parse(body);
+      urlArray = urlData.url = JSON.parse(urlData.url);
+      return mustache.set(urlArray, function(error, hashedUrl) {
         if (error) {
-          response.writeHead(200);
+          response.writeHead(400);
+          console.log(error);
           response.end(JSON.stringify({
             error: "There was an error in parsing the url\n" + error
           }));
@@ -101,15 +104,15 @@
       return serveStaticFile('index.html', 'text/html', response);
     } else {
       type = getFileType(pathname);
-      if (type) {
-        return serveStaticFile(pathname, type, response);
-      } else {
+      if (type === pathname) {
         if (pathname.indexOf('.') === -1) {
           return handleRedirect(request.headers, pathname, response);
         } else {
           response.writeHead(200);
           return response.end();
         }
+      } else {
+        return serveStaticFile(pathname, type, response);
       }
     }
   };

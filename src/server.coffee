@@ -57,14 +57,16 @@ handlePost = (request, response) ->
   body = ''
 
   request.on('data', (data) ->
-    body += data.toString()
+    body += data
   )
 
   request.on('end', ->
-    url = qs.parse(body).url
-    mustache.set(url, (error, hashedUrl) ->
+    urlData = qs.parse(body)
+    urlArray = urlData.url = JSON.parse(urlData.url)
+    mustache.set(urlArray, (error, hashedUrl) ->
       if error
-        response.writeHead(200) #TODO: Make sure this is right
+        response.writeHead(400) #TODO: Make sure this is right
+        console.log error
         response.end(JSON.stringify(error: "There was an error in parsing the url\n#{error}" ))
       if hashedUrl
         response.writeHead(200)
@@ -74,18 +76,19 @@ handlePost = (request, response) ->
 
 handleGet = (request, response) ->
   pathname = url.parse(request.url).pathname.substring(1)
+
   if pathname == ''
     serveStaticFile('index.html', 'text/html', response)
   else
     type = getFileType(pathname)
-    if type
-      serveStaticFile(pathname, type, response)
-    else
+    if type == pathname
       if pathname.indexOf('.') == -1
         handleRedirect(request.headers, pathname, response)
       else
         response.writeHead(200)
         response.end()
+    else
+      serveStaticFile(pathname, type, response)
 
 handleRedirect = (headers, hashUrl, res) ->
   index = 0

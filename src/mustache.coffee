@@ -1,8 +1,7 @@
 class Mustache
   constructor: (@shortener, @storage) ->
 
-  set: (url, fn) ->
-    urlArray = url.split('|')
+  set: (urlArray, fn) ->
     @storage.getIndex( (outerErr, outerRes) =>
       hashed = @shortener.convert(parseInt(outerRes, 10))
       @storage.set(hashed, urlArray, (innerErr, innerRes) ->

@@ -6,7 +6,7 @@
       this.el = el;
     }
 
-    UrlField.prototype.get = function() {
+    UrlField.prototype.getVal = function() {
       var urlVal;
       urlVal = this.el.value;
       if (this.isOkayUrl(urlVal)) {
@@ -31,6 +31,10 @@
       } else {
         return true;
       }
+    };
+
+    UrlField.addAnotherField = function(container) {
+      return $(container).append('<input type="text" class="urlfield" placeholder="and adding..."/>');
     };
 
     return UrlField;
