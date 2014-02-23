@@ -10,7 +10,11 @@
   <body>
     <img src="css/mustache.svg" id="logo" alt="Mustached Adventure"/>
     <form id="main">
-      <input type="text" id="urlfield" placeholder="Enter URLs separated by | here without spaces"/>
+      <div id="urlfield-container">
+        <input type="text" class="urlfield" placeholder="Enter as many URLs"/>
+        <input type="text" class="urlfield" placeholder="as you want."/>
+        <input type="text" class="urlfield" placeholder="We'll keep on adding..."/>
+      </div>
       <button id="shorten">Shorten!</button>
     </form>
 
