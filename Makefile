@@ -1,10 +1,10 @@
 REPORTER = 'nyan'
 
 test:
-	@NODE_ENV=test mocha -u tdd --compilers coffee:coffee-script --reporter $(REPORTER)
+	@NODE_ENV=test mocha -u tdd --compilers coffee:coffee-script/register --reporter $(REPORTER)
 
 test-watch:
-	@NODE_ENV=test mocha -u tdd --compilers coffee:coffee-script \
+	@NODE_ENV=test mocha -u tdd --compilers coffee:coffee-script/register \
 		--reporter $(REPORTER) \
 		--growl \
 		--watch
