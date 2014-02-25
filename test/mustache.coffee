@@ -40,17 +40,17 @@ describe("Mustache", ->
   )
 
   it("should get the right address back", (done) ->
-    originalUrl = "http://google.com/"
+    originalUrl = ["http://google.com/"]
     @mustache.set(originalUrl, (err, hashedUrl) =>
       @mustache.get(hashedUrl, 0, (err, returnedUrl, newIndex) ->
-        assert.equal(originalUrl, returnedUrl)
+        assert.equal(originalUrl[0], returnedUrl[0])
         done()
       )
     )
   )
 
   it("should go back to first url if the sent index is greater than size", (done) ->
-    urls = "https://www.google.com/|https://www.hackerschool.com/|https://humbughq.com/|http://gmail.com/"
+    urls = ["https://www.google.com/", "https://www.hackerschool.com/", "https://humbughq.com/", "http://gmail.com/"]
     @mustache.set(urls, (err1, hashedUrl) =>
       @mustache.get(hashedUrl, 4, (err2, res, newIndex) ->
         assert.equal(res, "https://www.google.com/")
