@@ -1,6 +1,10 @@
 UrlField = require("../bin/urlfield").UrlField
 assert = require("assert")
-$ = require("jquery")
+jsdom = require('jsdom').jsdom
+document = jsdom('<html></html>', {})
+window = document.defaultView
+$ = require('jquery')(window)
+
 
 describe("UrlField", ->
 
