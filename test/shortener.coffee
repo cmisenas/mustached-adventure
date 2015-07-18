@@ -1,6 +1,5 @@
 Shortener = require("../bin/shortener").Shortener
 assert = require("assert")
-$ = require("jquery")
 
 describe("Shortener", ->
   setup(->

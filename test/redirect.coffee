@@ -1,6 +1,5 @@
 Redirector = require("../bin/redirect").Redirector
 assert = require("assert")
-$ = require("jquery")
 
 describe("Redirecting URLs", ->
   setup(->

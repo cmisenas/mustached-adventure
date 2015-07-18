@@ -1,5 +1,4 @@
 assert = require("assert")
-$ = require("jquery")
 Mustache = require("../bin/mustache").Mustache
 Storage = require("../bin/storage").Storage
 Shortener = require("../bin/shortener").Shortener
