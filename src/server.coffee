@@ -8,7 +8,9 @@ Mustache = require('./mustache').Mustache
 Storage = require("../bin/storage").Storage
 Shortener = require("../bin/shortener").Shortener
 
-storage = new Storage('redis')
+REDIS_PORT = config[process.env.NODE_ENV].redis.port
+
+storage = new Storage('redis', REDIS_PORT)
 shortener = new Shortener()
 
 mustache = new Mustache(shortener, storage)

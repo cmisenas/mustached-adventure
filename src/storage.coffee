@@ -2,11 +2,8 @@ config = require('../config')
 
 class Storage
   constructor: (mod, port, host, options) ->
-    REDIS_PORT = port ? config.production.redis.port
-    REDIS_PORT = config.development.redis.port if process.env.NODE_ENV == 'test'
-
     store = require(mod)
-    @client = store.createClient(REDIS_PORT, host, options)
+    @client = store.createClient(port, host, options)
 
     @client.setnx("index", 0)
     @client.on("error", (error) ->

@@ -1,10 +1,11 @@
 Storage = require("../bin/storage").Storage
 assert = require("assert")
+config = require('../config')
 
 describe("Storage", ->
 
   beforeEach( ->
-    @storage = new Storage('redis')
+    @storage = new Storage('redis', config.test.redis.port)
   )
 
   afterEach( ->

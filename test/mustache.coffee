@@ -1,11 +1,12 @@
 assert = require("assert")
+config = require('../config')
 Mustache = require("../bin/mustache").Mustache
 Storage = require("../bin/storage").Storage
 Shortener = require("../bin/shortener").Shortener
 
 describe("Mustache", ->
   beforeEach(->
-    @storage = new Storage('redis')
+    @storage = new Storage('redis', config.test.redis.port)
     @shortener = new Shortener()
     @mustache = new Mustache(@shortener, @storage)
   )
