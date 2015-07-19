@@ -1,5 +1,5 @@
 (function() {
-  var COOKIE_PREFIX, Mustache, PORT, Shortener, Storage, config, extractCookie, fs, getFileType, handleGet, handlePost, handleRedirect, http, makeApp, mustache, qs, serveErrorPage, serveStaticFile, shortener, startServer, storage, url;
+  var COOKIE_PREFIX, Mustache, PORT, REDIS_PORT, Shortener, Storage, config, extractCookie, fs, getFileType, handleGet, handlePost, handleRedirect, http, makeApp, mustache, qs, serveErrorPage, serveStaticFile, shortener, startServer, storage, url;
 
   config = require('../config');
 
@@ -17,7 +17,9 @@
 
   Shortener = require("../bin/shortener").Shortener;
 
-  storage = new Storage('redis');
+  REDIS_PORT = config[process.env.NODE_ENV].redis.port;
+
+  storage = new Storage('redis', REDIS_PORT);
 
   shortener = new Shortener();
 

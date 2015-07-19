@@ -5,13 +5,9 @@
 
   Storage = (function() {
     function Storage(mod, port, host, options) {
-      var REDIS_PORT, store;
-      REDIS_PORT = port != null ? port : config.production.redis.port;
-      if (process.env.NODE_ENV === 'test') {
-        REDIS_PORT = config.development.redis.port;
-      }
+      var store;
       store = require(mod);
-      this.client = store.createClient(REDIS_PORT, host, options);
+      this.client = store.createClient(port, host, options);
       this.client.setnx("index", 0);
       this.client.on("error", function(error) {
         return console.log("ERROR: " + error);
