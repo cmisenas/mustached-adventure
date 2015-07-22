@@ -17,7 +17,9 @@
 
   Shortener = require("../bin/shortener").Shortener;
 
-  REDIS_PORT = config[process.env.NODE_ENV].redis.port;
+  if (process.env.NODE_ENV !== 'production') {
+    REDIS_PORT = config[process.env.NODE_ENV].redis.port;
+  }
 
   storage = new Storage('redis', REDIS_PORT);
 
@@ -27,7 +29,7 @@
 
   COOKIE_PREFIX = '_MYSTASH_';
 
-  PORT = process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test' ? 8000 : 80;
+  PORT = process.env.PORT || 8000;
 
   serveStaticFile = function(filename, type, response) {
     return fs.readFile(filename, 'utf8', function(error, data) {

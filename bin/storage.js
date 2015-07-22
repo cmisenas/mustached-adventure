@@ -5,9 +5,15 @@
 
   Storage = (function() {
     function Storage(mod, port, host, options) {
-      var store;
+      var rtg, store;
       store = require(mod);
-      this.client = store.createClient(port, host, options);
+      if (process.env.REDISTOGO_URL != null) {
+        rtg = require("url").parse(process.env.REDISTOGO_URL);
+        this.client = store.createClient(rtg.port, rtg.hostname);
+        this.client.auth(rtg.auth.split(":")[1]);
+      } else {
+        this.client = store.createClient(port, host, options);
+      }
       this.client.setnx("index", 0);
       this.client.on("error", function(error) {
         return console.log("ERROR: " + error);

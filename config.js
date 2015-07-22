@@ -9,11 +9,6 @@ config = {
     redis: {
       port: 6380
     }
-  },
-  production: {
-    redis: {
-      port: 6379
-    }
   }
 };
 

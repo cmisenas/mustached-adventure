@@ -8,14 +8,14 @@ Mustache = require('./mustache').Mustache
 Storage = require("../bin/storage").Storage
 Shortener = require("../bin/shortener").Shortener
 
-REDIS_PORT = config[process.env.NODE_ENV].redis.port
+REDIS_PORT = config[process.env.NODE_ENV].redis.port if process.env.NODE_ENV isnt 'production'
 
 storage = new Storage('redis', REDIS_PORT)
 shortener = new Shortener()
 
 mustache = new Mustache(shortener, storage)
 COOKIE_PREFIX = '_MYSTASH_'
-PORT = if process.env.NODE_ENV == 'development' or process.env.NODE_ENV == 'test' then 8000 else 80
+PORT = process.env.PORT || 8000
 
 # Writes static file contents to head. If file does not exists, function serves error
 # @param {string} filename - file to serve

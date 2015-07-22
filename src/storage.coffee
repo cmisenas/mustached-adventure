@@ -3,7 +3,12 @@ config = require('../config')
 class Storage
   constructor: (mod, port, host, options) ->
     store = require(mod)
-    @client = store.createClient(port, host, options)
+    if process.env.REDISTOGO_URL?
+      rtg   = require("url").parse(process.env.REDISTOGO_URL)
+      @client = store.createClient(rtg.port, rtg.hostname)
+      @client.auth(rtg.auth.split(":")[1])
+    else
+      @client = store.createClient(port, host, options)
 
     @client.setnx("index", 0)
     @client.on("error", (error) ->

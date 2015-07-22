@@ -2,6 +2,9 @@
   "name": "mustached-adventure",
   "version": "0.0.2",
   "private": true,
+  "dependencies": {
+    "redis" : "0.12.1"
+  },
   "devDependencies": {
     "mocha" : "1.17.0",
     "jquery" : "2.1.4",
