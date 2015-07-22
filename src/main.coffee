@@ -1,4 +1,4 @@
-DOMAIN = "http://www.mstch.me/"
+DOMAIN = "http://www.mstch.io/"
 shortenBtn = $('#shorten')[0]
 
 sendRequest = (urlVals) ->

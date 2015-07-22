@@ -5,7 +5,7 @@ A url shortener that stores a sequence of urls in one shortened link.
 Stash your links and send your friends on an adventure.
 
 ##Want to try it?
-Its up and running on [mstch.me](http://mstche.me)
+Its up and running on [mstch.io](http://www.mstch.io/)
 
 ##Want to contribute?
 We would love help improving the interface, building a chrome plugin, testing, promoting and scaling.
