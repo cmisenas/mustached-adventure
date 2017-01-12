@@ -7,6 +7,7 @@ test:
 	redis-cli -p $(TEST_REDIS_PORT) SHUTDOWN
 
 start-server:
+	redis-server dev-redis.conf &
 	@NODE_ENV=development node bin/server.js
 
 .PHONY: test
