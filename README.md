@@ -13,14 +13,11 @@ in the main directory type:
 
 ```
 npm install
-redis-server & # run a redis server in the background
 make start-server
-# node bin/server.js
 ```
 
 ##Want to contribute?
 We would love help improving the interface, building a chrome plugin, testing, promoting and scaling.
-
 
 ##Tests
 
