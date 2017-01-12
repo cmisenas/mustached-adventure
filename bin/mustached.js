@@ -49,7 +49,8 @@
   var DOMAIN, allOtherFieldsFull, append, displayError, displayUrl, getAllInputFields, getAllInputFieldsExceptLast, getAllUrlFields, sendRequest, shortenBtn,
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
-  DOMAIN = "http://www.mstch.io/";
+  // DOMAIN = "http://www.mstch.io/";
+  DOMAIN = "https://mstch.herokuapp.com/";
 
   shortenBtn = $('#shorten')[0];
 

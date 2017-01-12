@@ -1,4 +1,7 @@
-DOMAIN = "http://www.mstch.io/"
+DOMAIN = "http://mstch.herokuapp.com/"
+if process.env.WEB_URL?
+  DOMAIN = process.env.WEB_URL
+
 shortenBtn = $('#shorten')[0]
 
 sendRequest = (urlVals) ->
