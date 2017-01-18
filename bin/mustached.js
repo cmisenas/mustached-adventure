@@ -46,10 +46,10 @@
 }).call(this);
 
 (function() {
-  var DOMAIN, PROTOCAL, allOtherFieldsFull, append, displayError, displayUrl, getAllInputFields, getAllInputFieldsExceptLast, getAllUrlFields, sendRequest, shortenBtn,
+  var DOMAIN, PROTOCOL, allOtherFieldsFull, append, displayError, displayUrl, getAllInputFields, getAllInputFieldsExceptLast, getAllUrlFields, sendRequest, shortenBtn,
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
-  PROTOCAL = "http://";
+  PROTOCOL = "http://";
 
   DOMAIN = "mstch.link";
 
@@ -76,7 +76,7 @@
 
   displayUrl = function(path) {
     var innerHtml;
-    innerHtml = "<a href='" + PROTOCAL + path + "'>" + DOMAIN + "/" + path + "</a>";
+    innerHtml = "<a href='" + path + "'>" + DOMAIN + "/" + path + "</a>";
     return append("shortenedUrl", innerHtml);
   };
 

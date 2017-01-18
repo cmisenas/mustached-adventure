@@ -1,4 +1,4 @@
-PROTOCAL = "http://"
+PROTOCOL = "http://"
 DOMAIN = "mstch.link"
 
 shortenBtn = $('#shorten')[0]
@@ -18,7 +18,7 @@ sendRequest = (urlVals) ->
   )
 
 displayUrl = (path) ->
-  innerHtml = "<a href='#{PROTOCAL}#{path}'>#{DOMAIN}/#{path}</a>"
+  innerHtml = "<a href='#{path}'>#{DOMAIN}/#{path}</a>"
   append("shortenedUrl", innerHtml)
 
 displayError = (error) ->
