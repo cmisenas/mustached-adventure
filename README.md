@@ -16,6 +16,9 @@ npm install
 make start-server
 ```
 
+## To update code
+After you make changes to `.coffee` files, run grunt to compile the `.coffee` files to `.js` and to generate the minified frontend JavaScript file.
+
 ##Want to contribute?
 We would love help improving the interface, building a chrome plugin, testing, promoting and scaling.
 
