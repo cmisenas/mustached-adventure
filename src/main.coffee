@@ -1,4 +1,4 @@
-DOMAIN = "http://mstch.herokuapp.com/"
+DOMAIN = "mstch.link"
 if process.env.WEB_URL?
   DOMAIN = process.env.WEB_URL
 
