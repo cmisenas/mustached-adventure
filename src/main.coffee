@@ -1,4 +1,4 @@
-DOMAIN = "mstch.link"
+DOMAIN = "http://mstch.link"
 if process.env.WEB_URL?
   DOMAIN = process.env.WEB_URL
 
