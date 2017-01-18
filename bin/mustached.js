@@ -51,10 +51,6 @@
 
   DOMAIN = "http://mstch.link";
 
-  if (process.env.WEB_URL != null) {
-    DOMAIN = process.env.WEB_URL;
-  }
-
   shortenBtn = $('#shorten')[0];
 
   sendRequest = function(urlVals) {

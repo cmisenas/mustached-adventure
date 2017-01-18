@@ -1,6 +1,4 @@
 DOMAIN = "http://mstch.link"
-if process.env.WEB_URL?
-  DOMAIN = process.env.WEB_URL
 
 shortenBtn = $('#shorten')[0]
 
