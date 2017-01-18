@@ -1,5 +1,5 @@
 PROTOCOL = "http://"
-DOMAIN = "mstch.link"
+DOMAIN = "www.mstch.link"
 
 shortenBtn = $('#shorten')[0]
 
