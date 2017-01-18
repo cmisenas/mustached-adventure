@@ -29,7 +29,7 @@
 
   displayUrl = function(path) {
     var innerHtml;
-    innerHtml = "<a href='" + path + "'>" + DOMAIN + "/" + path + "</a>";
+    innerHtml = "<a href='" + path + "'>" + PROTOCOL + DOMAIN + "/" + path + "</a>";
     return append("shortenedUrl", innerHtml);
   };
 

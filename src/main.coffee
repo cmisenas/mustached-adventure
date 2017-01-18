@@ -18,7 +18,7 @@ sendRequest = (urlVals) ->
   )
 
 displayUrl = (path) ->
-  innerHtml = "<a href='#{path}'>#{DOMAIN}/#{path}</a>"
+  innerHtml = "<a href='#{path}'>#{PROTOCOL}#{DOMAIN}/#{path}</a>"
   append("shortenedUrl", innerHtml)
 
 displayError = (error) ->
